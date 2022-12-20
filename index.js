@@ -1,105 +1,13 @@
-// // api.getCats("elvira")
-// const getCats = async() => {
-//     const responce = await fetch('https://cats.petiteweb.dev/api/single/elvira/show');
-//     const data = await responce.json()
-//     console.log(data);
-// }
-
-// // getCats()
-
-// const getCat = async() => {
-//     Api
-//     const responce = await fetch('https://cats.petiteweb.dev/api/single/elvira/show/11');
-//     const data = await responce.json()
-//     console.log(data);
-// }
-// // getCat()
-
-// const getCatsIds = async() => {
-//     const responce = await fetch('https://cats.petiteweb.dev/api/single/elvira/ids');
-//     const data = await responce.json()
-//     console.log(data);
-// }
-// // getCatsIds()
-
-
-
-// const addCat = async() => {
-//     const newCat = {
-
-//         id: 333,
-//         name: "Кася",
-//         favorite: true,
-//         rate: 9,
-//         age: 2,
-//         description: "Ласковая кошка",
-//         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOOBpql1q0erg1_A_opjIRkfcXteviUTrgoVUehzQJJznlMZXOH9oP0hjVFuy14BMgEok&usqp=CAU"
-
-//     }
-//     const responce = await fetch('https://cats.petiteweb.dev/api/single/elvira/add', {
-//         method: 'POST',
-//         headers: {
-//             'Accept': 'application/json',
-//             'Content-type': 'application/json'
-//         },
-//         body: JSON.stringify(newCat)
-//     });
-//     const data = await responce.json()
-//     console.log(data);
-// }
-// // addCat()
-
-
-// const changeidObj = { id: 7}
-
-// const changeCat = async() => {
-//     const responce = await fetch('https://cats.petiteweb.dev/api/single/elvira/update/14', {
-//         method: 'PUT',
-//         headers: {
-//             'Accept': 'application/json',
-//             'Content-type': 'application/json'
-//         },
-//         body: JSON.stringify(changeidObj)
-//     });
-//     const data = await responce.json()
-//     console.log(data);
-// }
-// // changeCat()
-
-// const api = new Api('elvira');
-
-// //на промисах
-// api.getCats().then(res => res.json()).then(data => console.log(data))
-
-
-// // на async/await
-// // const getting = async () => {
-// //     const res = await api.getCats();
-// //     const data = await res.json()
-// //     console.log(data);
-// // }
-// // getting()
-
-// const adding = async (body) => {
-// const res = await api.addCat(body)
-// const data = await res.json()
-// console.log(data);
-// }
-// // adding(newCat)
-
-// const deleting = async (id) => {
-//     const res = await api.delCat(id)
-//     const data = await res.json()
-//     console.log(data);
-//     }
-//     // deleting(333)
-
-
 const $wrapper = document.querySelector('[data-wrapper]');
 const $addButton = document.querySelector('[data-add_button]');
 const $modal = document.querySelector('[data-modal]');
 const $spinner = document.querySelector('[data-spinner]');
 const $closeButton = document.querySelector('[data-close_button]');
+
+const showModal = document.getElementById('showCatModal')
+const $editModal = document.querySelector('[edit-data-modal]');
+const $editButton = document.querySelector('[data-edit_button]');
+const $closeEditButton = document.querySelector('[edit-data-close_button]');
 
 const api = new Api('elvira')
 
@@ -139,7 +47,9 @@ $wrapper.addEventListener('click', (event) => {
         .then((cat) => {
           $spinner.classList.add('hidden')
 
-          const showModal = document.getElementById('showCatModal')
+          // const id = showModal.querySelector('.cat-id')
+          // id.textContent = `${cat.id}`
+
           const name = showModal.querySelector('.cat-name')
           name.textContent = `${cat.name}`
 
@@ -174,7 +84,7 @@ document.forms.catsForm.addEventListener('submit', (event) => {
   data.id = Number(data.id)
   data.rate = Number(data.rate)
   data.favorite = data.favorite === 'on'
-
+  
   console.log(data);
 
   api.addCat(data).then(res => res.ok && $modal.classList.remove('hidden'))
@@ -186,6 +96,16 @@ $addButton.addEventListener('click', () => {
 
 $closeButton.addEventListener('click', () => {
   $modal.classList.add('hidden')
+})
+
+$editButton.addEventListener('click', () => {
+  // const catId = document.getElementById('modal-cat-id').value
+  // console.log(`edit cat id: ${catId}`)
+  $editModal.classList.remove('hidden')
+})
+
+$closeEditButton.addEventListener('click', () => {
+  $editModal.classList.add('hidden')
 })
 
 api.getCats()
@@ -202,3 +122,17 @@ api.getCats()
 
   });
 
+
+  document.forms.editCatForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+  
+    const data = Object.fromEntries(new FormData(event.target).entries());
+  
+    data.age = Number(data.age)
+    data.rate = Number(data.rate)
+    data.favorite = data.favorite === 'on'
+  
+    console.log(data);
+  
+    api.updCat(data, data.id).then(res => res.ok && $editModal.classList.remove('hidden'))
+  })

@@ -31,7 +31,8 @@
     <div data-wrapper class="d-flex justify-space-between"></div>
   </div>
 
-  <div class="modal fade" id="showCatModal"  aria-hidden="true">
+  <!-- show modal -->
+  <div class="modal fade" id="showCatModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -39,55 +40,87 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+          <!-- <label class="modal-cat-id hidden"></label> -->
           <h5 class="cat-name"></h5>
-          <p class="cat-description" ></p>
+          <p class="cat-description"></p>
           <p class="cat-age"></p>
           <p class="cat-rate"></p>
           <p class="cat-favorite"></p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button data-action="edit" type="button" class="btn btn-primary">Edit</button>
+          <button data-action="edit" data-edit_button type="button" data-bs-dismiss="modal" class="btn btn-primary">Edit</button>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- add modal -->
+  <div data-modal class="modal-wrapper hidden">
 
-    <div data-modal class="modal-wrapper hidden">
+    <div class="custom-modal">
+      <form name="catsForm">
+        <input type="Number" name="id" placeholder="Id" class="form-control mb-2" id="exampleInputEmail1" />
 
-      <div class="custom-modal">
-        <form name="catsForm">
-          <input type="Number" name="id" placeholder="Id" class="form-control mb-2" id="exampleInputEmail1" />
+        <input type="text" name="name" placeholder="Имя кота" class="form-control mb-2" id="exampleInputEmail1" />
 
-          <input type="text" name="name" placeholder="Имя кота" class="form-control mb-2" id="exampleInputEmail1" />
+        <input type="text" name="description" placeholder="Описание кота" class="form-control mb-2"
+          id="exampleInputEmail1" />
 
-          <input type="text" name="description" placeholder="Описание кота" class="form-control mb-2"
-            id="exampleInputEmail1" />
+        <input type="text" name="age" placeholder="Возраст" class="form-control mb-2" id="exampleInputEmail1" />
 
-          <input type="text" name="age" placeholder="Возраст" class="form-control mb-2" id="exampleInputEmail1" />
+        <input type="text" name="rate" placeholder="Рейтинг" class="form-control mb-2" id="exampleInputEmail1" />
 
-          <input type="text" name="rate" placeholder="Рейтинг" class="form-control mb-2" id="exampleInputEmail1" />
+        <input type="text" name="image" placeholder="Url картинки" class="form-control mb-2" id="exampleInputEmail1" />
 
-          <input type="text" name="image" placeholder="Url картинки" class="form-control mb-2"
-            id="exampleInputEmail1" />
+        <div class="mb-3 form-check">
+          <input name="favorite" type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Нажми если любимый котик</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
 
-          <div class="mb-3 form-check">
-            <input name="favorite" type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Нажми если любимый котик</label>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="btn btn-primary justify-content-around">
+          <button type="button" data-close_button class="btn-close btn-close-red" aria-label="Close"></button>
+        </div>
 
-          <div class="btn btn-primary justify-content-around">
-            <button type="button" data-close_button class="btn-close btn-close-red" aria-label="Close"></button>
-          </div>
-
-      </div>
-      </form>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-      crossorigin="anonymous"></script>
+    </form>
+  </div>
+
+  <!-- edit modal -->
+  <div edit-data-modal class="modal-wrapper hidden">
+
+    <div class="custom-modal">
+      <form name="editCatForm">
+        <input type="text" name="id" placeholder="Id" class="form-control mb-2 hidden" id="exampleInputEmail1" />
+
+        <input type="text" name="name" placeholder="Имя кота" class="form-control mb-2" id="exampleInputEmail1" />
+
+        <input type="text" name="description" placeholder="Описание кота" class="form-control mb-2"
+          id="exampleInputEmail1" />
+
+        <input type="text" name="age" placeholder="Возраст" class="form-control mb-2" id="exampleInputEmail1" />
+
+        <input type="text" name="rate" placeholder="Рейтинг" class="form-control mb-2" id="exampleInputEmail1" />
+
+        <input type="text" name="image" placeholder="Url картинки" class="form-control mb-2" id="exampleInputEmail1" />
+
+        <div class="mb-3 form-check">
+          <input name="favorite" type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Нажми если любимый котик</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <div class="btn btn-primary justify-content-around">
+          <button type="button" edit-data-close_button class="btn-close btn-close-red" aria-label="Close"></button>
+        </div>
+
+    </div>
+    </form>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>
